@@ -1,7 +1,7 @@
 {
   "name": "webapp",
-  "description": "Build and run a deployed web app by asking for it in plain language. Scaffolds a fresh Next.js + Supabase project on Vercel, then turns every later request into shipped code through an interview, an issue, a green check and a verified deploy.",
-  "version": "1.0.0",
+  "description": "Build and run a deployed web app by asking for it in plain language. Scaffolds a fresh Next.js + Supabase project on Vercel, or adopts one that is already live on somebody else's stack and leaves it running there, then turns every later request into shipped code through an interview, an issue, a green check and a verified deploy. Moving existing data is a separate, deliberate step that never deletes the source.",
+  "version": "1.1.0",
   "author": { "name": "3aquin3" },
   "homepage": "https://github.com/aquine-kujaruk/skills",
   "repository": "https://github.com/aquine-kujaruk/skills",

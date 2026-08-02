@@ -1,12 +1,12 @@
 {
   "name": "aquine-skills",
   "owner": { "name": "3aquin3" },
-  "description": "Takes an empty repository to a deployed Next.js + Supabase app on Vercel, then keeps shipping changes asked for in plain language. No code template: the app is scaffolded by the framework's own CLI at setup time.",
+  "description": "Takes a web app from wherever it is today — an empty repository, or one already live on somebody else's stack — to something that keeps shipping because a person described what they wanted. No code template: the app is scaffolded by the framework's own CLI at setup time.",
   "plugins": [
     {
       "name": "webapp",
       "source": "./",
-      "description": "Scaffold, deploy and then evolve a Next.js + Supabase web app on Vercel, driven entirely by plain-language requests."
+      "description": "Scaffold a Next.js + Supabase app on Vercel, or adopt a live one wherever it already runs, and then evolve it from plain-language requests alone."
     }
   ]
 }
