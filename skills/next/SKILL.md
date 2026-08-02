@@ -188,6 +188,35 @@ procedure they can follow without knowing anything:
 
 Then wait for them. One blocked step is not a failed request.
 
+### New services come in under your control, or they become permanent human steps
+
+Whenever a request pulls in an outside service — payments, email, file storage, analytics,
+anything with its own account and dashboard — how it gets wired matters as much as whether
+it works. **Prefer, in this order:**
+
+1. **A Claude connector the client can switch on.** One click in their settings, and from
+   then on you operate the service yourself: read its state, verify its configuration,
+   diagnose it when something breaks.
+2. **An MCP server or a skill for it.** If no connector exists, check whether the service
+   ships one. Installing it is a one-time human step — so hand it over exactly like any
+   other: where to go, what to run or paste, how they'll know it worked. From then on it's
+   yours to drive.
+3. **Dashboard-only, as the last resort.** Some services offer no way in. Then every future
+   change to it is a hand-over procedure, forever — which is exactly why 1 and 2 come
+   first. Say so when this is the only option, so the client knows what they're signing up
+   for.
+
+The reasoning to give them, in their words: "if I can see it, I can fix it — otherwise,
+every time it hiccups, you're the one clicking through menus." A service you can't reach
+isn't just slower to set up; it's invisible at exactly the moment something breaks.
+
+Whichever path it takes, record it in `CLAUDE.md`: the service, how you reach it (or that
+you can't), and what remains a human step. The next session shouldn't rediscover this.
+
+**Secrets still follow the standing rule.** A connector or MCP may need an API key — it
+goes where the service or the host keeps it, never through the chat. If it lands in the
+chat anyway, it's exposed: say so and walk them through rotating it.
+
 ### Closing
 
 State what's going to be built, as a statement rather than a question, and move to Phase 2.

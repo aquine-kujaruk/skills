@@ -155,6 +155,20 @@ The Vercel connector expires periodically and has to be reauthorized from the cl
 connector settings. If its tools fail on authorization, say so rather than declaring
 deployment unreachable — `curl` to the health endpoint still works for checking state.
 
+## Outside services this project uses
+
+{{One row per service beyond the core stack — payments, email, storage, analytics. Added
+the day the service is, never later.}}
+
+| Service | Reached via | Still a human step |
+| --- | --- | --- |
+| {{Stripe}} | {{connector / MCP server / dashboard only}} | {{e.g. creating API keys}} |
+
+New services come in agent-reachable or not at all lightly: a Claude connector first, an
+MCP server or skill second, dashboard-only as a last resort that turns every future change
+into a hand-over procedure. The `next` skill carries the full rule; this table is where
+what was decided gets remembered.
+
 ## Checking it's all still standing
 
 ```bash
