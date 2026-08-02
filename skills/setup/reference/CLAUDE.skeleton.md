@@ -227,10 +227,12 @@ These are true of every project built this way, so start with them:
 - The knowledge graph is local-only and never committed: `graphify` falls back to the
   `claude` CLI on `PATH`, so a bare `extract` becomes a nested agent shipping the
   repository off the machine. Always `--code-only` and `--no-label`.
-- **The application was scaffolded by the official CLI and is never pinned to a template.**
-  Framework versions come from `create-next-app@latest` at setup time; upgrades come from
-  the framework's own tooling. Nothing in this project's history should be copied forward
-  into a new one.
+- **The application was scaffolded by the framework's own CLI, bare, and is never pinned to
+  a template.** Versions come from `create-next-app@latest` at setup time; upgrades come
+  from the framework's own tooling. Not `-e with-supabase`: that starter puts a key in the
+  browser under `NEXT_PUBLIC_` and makes RLS policies the guard, which is the inverse of
+  the shape above. Nothing in this project's history should be copied forward into a new
+  one.
 
 Then add whatever setup actually decided that a future session would otherwise get wrong.
 

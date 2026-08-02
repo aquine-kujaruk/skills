@@ -1,6 +1,6 @@
 ---
 name: setup
-description: First-run setup for an empty repository — scaffolds a fresh Next.js app with the official CLI, wires it to a new Supabase database with credentials that never reach the browser, gets it deployed on Vercel, and verifies it is both live and closed from outside. Assume whoever is here has never written code. Ends by writing the project's CLAUDE.md, ADR.md and CONTEXT.md, after which /next takes over. Use on the first message in a repository that has no application in it yet, and whenever someone asks to set up, scaffold, connect or first deploy a project.
+description: First-run setup for an empty repository — picks the stack (almost always Next.js on Vercel with Supabase), scaffolds it with the framework's own CLI, wires it to a new database with credentials that never reach the browser, gets it deployed, and verifies it is both live and closed from outside. Assume whoever is here has never written code. Ends by writing the project's CLAUDE.md, ADR.md and CONTEXT.md, after which /next takes over. Use on the first message in a repository that has no application in it yet, and whenever someone asks to set up, scaffold, connect or first deploy a project.
 ---
 
 # Setup
@@ -10,7 +10,7 @@ learned so `/next` can take over.
 
 ```
 Step 0  Connectors    they click     Vercel and Supabase, in Claude's settings
-Step 1  Scaffold      you            the official CLI, then four wirings
+Step 1  Stack         you            almost always the default; then scaffold
 Step 2  Database      you            new project, one migration
 Step 3  Live          they click     import the repo into Vercel
 Step 4  The one key   they paste     service_role, into Vercel
@@ -53,7 +53,48 @@ Confirm it yourself with a harmless read on each (list Supabase organizations, l
 Vercel projects). If a connector's tools fail on authorization it is not connected — say
 so and send them back rather than working around it.
 
-## Step 1 — Scaffold
+## Step 1 — The stack, then the scaffold
+
+### Choosing it takes one second, and the answer is nearly always the same
+
+**Next.js on Vercel with Supabase.** Don't put this to them as a question — they'd have no
+basis to answer, and it is the right call something like 99 times out of 100: frontend and
+backend in one deployable unit, a managed Postgres behind it, a deploy path that needs no
+credentials, and an ecosystem deep enough that almost any later request has a well-trodden
+answer. It also scales far past anything a first project will ask of it.
+
+Read what they want first, then scaffold. Say what you're building on in one sentence, as
+a statement, and move.
+
+The remaining 1% is worth recognising, because the rest of this skill assumes the default
+and cannot deliver anything else. Speak up **before scaffolding** if:
+
+- It isn't a web app — a native mobile app, a desktop tool, a CLI.
+- Data has to live somewhere specific: on-premise, a named cloud, a residency rule.
+- The work is long-running, stateful or heavily concurrent — video processing, big
+  scheduled jobs, sustained websockets. Serverless functions fit that badly.
+- There's an existing codebase or stack it has to fit into.
+- The data genuinely isn't relational at a scale where that matters.
+
+When one of those is true, say plainly what doesn't fit and what you'd use instead — then
+let them decide. **Don't quietly scaffold something the rest of this method can't ship**:
+every later step here, from the health check to the deploy, is built on the default.
+
+### Use the framework's own CLI, bare
+
+```bash
+npx create-next-app@latest . --typescript --eslint --app --no-tailwind \
+  --no-src-dir --import-alias "@/*" --use-npm --yes
+```
+
+**Bare, and not a Supabase starter.** `create-next-app -e with-supabase` exists and is
+official, but it wires the opposite security model: it puts a Supabase key in the browser
+under `NEXT_PUBLIC_` and leans on RLS policies as the guard. This project's whole shape is
+that **no key reaches the browser at all** and RLS is closed with no policies. Starting
+from that template means ripping out more than you keep, and getting it half-right leaves
+a database open to the internet. Third-party all-in-one scaffolders are worse: the ones
+that bundle a stack tend to target other hosts entirely, and the small ones are one
+maintainer away from abandonment.
 
 **Never write the application from memory, and never copy one from a template.** Both go
 stale: the framework moves, and a year-old skeleton quietly ships year-old defaults. The

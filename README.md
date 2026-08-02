@@ -8,9 +8,18 @@ framework's own CLI, so a project started next year starts on next year's Next.j
 than on whatever was current when this was written. What these skills carry is the part a
 CLI can't: the security shape, the deployment path, and the working method.
 
+**The stack is Next.js on Vercel with Supabase, and setup picks it without asking** —
+frontend and backend in one deployable unit, managed Postgres behind it, a deploy path
+that needs no credentials, and an ecosystem deep enough that almost any later request has a
+well-trodden answer. Setup only raises the question when something in the request genuinely
+rules it out: a native app, a data-residency rule, long-running or heavily concurrent work,
+an existing codebase to fit into. It scaffolds with `create-next-app` **bare** rather than
+a Supabase starter, because those put a database key in the browser and make RLS policies
+the guard — the inverse of the shape below.
+
 | Skill | When it runs |
 | --- | --- |
-| **`setup`** | First message in an empty repository. Scaffolds the app, creates the database, gets it deployed, verifies it is live *and* closed from outside, then writes the project's `CLAUDE.md`, `ADR.md` and `CONTEXT.md`. |
+| **`setup`** | First message in an empty repository. Picks the stack, scaffolds the app, creates the database, gets it deployed, verifies it is live *and* closed from outside, then writes the project's `CLAUDE.md`, `ADR.md` and `CONTEXT.md`. |
 | **`next`** | Every request after that. Interviews in plain language, writes an issue, hands it to agents, waits for a green check, merges, and verifies production. Nobody types it — it is the default way of working. |
 | **`graphify`** | A local knowledge graph of the repository, so a change is planned against what it actually touches instead of against grep. |
 
