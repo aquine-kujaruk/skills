@@ -148,6 +148,12 @@ pass before you go further** — a red CI at this point poisons every later step
 Leave the CLI's landing page alone. The client's first real request is what replaces it,
 and an example feature invented now is just something they have to ask you to delete.
 
+**Don't add a UI kit either.** If they later say the app looks plain, that's when it goes
+in — `npx shadcn@latest init`, at that point, for the same reason everything else here
+comes from a CLI: it installs what's current the day it runs. Adding it now means shipping
+today's version into an app that won't be styled for weeks, and charging the client for a
+choice nobody made.
+
 ## Step 2 — The database
 
 You can do all of this. Ask only what they'd have an opinion about: what the app is

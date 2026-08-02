@@ -242,6 +242,11 @@ These are true of every project built this way, so start with them:
   browser under `NEXT_PUBLIC_` and makes RLS policies the guard, which is the inverse of
   the shape above. Nothing in this project's history should be copied forward into a new
   one.
+- **The same rule governs what gets added later, and nothing is added before it's asked
+  for.** A UI kit arrives the day someone says the app looks plain, via `npx shadcn@latest
+  init` — not at setup. Reach for the tool's own installer over a copied snippet every
+  time: the installer is current on the day it runs, and a snippet is current on the day it
+  was written.
 
 Then add whatever setup actually decided that a future session would otherwise get wrong.
 
