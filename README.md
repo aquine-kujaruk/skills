@@ -33,10 +33,14 @@ agent's own judgement.
 Into a project, one command:
 
 ```bash
-npx skills add aquine-kujaruk/skills --all
+npx skills add aquine-kujaruk/skills --skill '*' --agent claude-code --copy -y
 ```
 
 They land in `.claude/skills/` and get committed with the project, so they travel with it.
+
+Don't use `--all` here: it is shorthand for `--agent '*'`, which writes the same skills into
+fifty-odd other agents' directories. `--copy` matters too — the default symlinks into a
+cache that won't exist on anyone else's machine or in CI.
 
 Or as a Claude Code plugin, which namespaces them as `/webapp:setup` and `/webapp:next`:
 

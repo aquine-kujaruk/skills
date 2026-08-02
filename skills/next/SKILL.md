@@ -1,6 +1,6 @@
 ---
 name: next
-description: The default way of working in this repository. Turns what someone asks for into deployed code: a business interview, an issue holding the spec, agents that implement it, a green check, a merge and a verified production. Use whenever anyone asks for a change to the application, reports that something behaves wrong, or wants a new capability — with or without technical detail, and whether or not they type /next.
+description: The default way of working in this repository. Turns what someone asks for into deployed code — a business interview, an issue holding the spec, agents that implement it, a green check, a merge and a verified production. Use whenever anyone asks for a change to the application, reports that something behaves wrong, or wants a new capability — with or without technical detail, and whether or not they type /next.
 ---
 
 # Next
