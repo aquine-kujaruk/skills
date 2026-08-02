@@ -1,6 +1,6 @@
 # skills
 
-Three skills that take an **empty GitHub repository** to a deployed web app, and then keep
+Four skills that take an **empty GitHub repository** to a deployed web app, and then keep
 it moving — driven entirely by someone describing what they want, in plain words.
 
 There is no code template here. The application is scaffolded at setup time by the
@@ -21,9 +21,10 @@ the guard — the inverse of the shape below.
 | --- | --- |
 | **`setup`** | First message in an empty repository. Picks the stack, scaffolds the app, creates the database, gets it deployed, verifies it is live *and* closed from outside, then writes the project's `CLAUDE.md`, `ADR.md` and `CONTEXT.md`. |
 | **`next`** | Every request after that. Interviews in plain language, writes an issue, hands it to agents, waits for a green check, merges, and verifies production. Nobody types it — it is the default way of working. |
+| **`gaps`** | At the end of a delivery, names **one** thing the app is missing that nobody knew to ask for — terms of use, a privacy notice, sign-in, backups, rate limiting. One per session, in plain language, and always as its own separate issue. |
 | **`graphify`** | A local knowledge graph of the repository, so a change is planned against what it actually touches instead of against grep. |
 
-Above all three sits one rule: **production stays up.** The health check runs before every
+Above all four sits one rule: **production stays up.** The health check runs before every
 merge and again after every deploy, and nothing is ever reverted or redeployed on an
 agent's own judgement.
 

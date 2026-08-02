@@ -52,9 +52,13 @@ asking the app to do something new, or reporting that it behaves wrong, runs the
 path: a plain-language interview, an issue holding the spec, agents that implement it, a
 green check, a merge, and a verified production. A question is just answered.
 
-An issue's label is its stage, exactly one at a time: `ready-for-agent` → `implementing`
-→ `in-review` → `deploying` → `shipped`, with `blocked` added alongside whichever stage
-stalled. Setting labels replaces the whole set, which is what keeps them exclusive.
+**One issue solves one problem.** If you can't title it without "and", it's two issues.
+
+An issue's label is its stage, exactly one at a time: `suggested` → `ready-for-agent` →
+`implementing` → `in-review` → `deploying` → `shipped`, with `blocked` added alongside
+whichever stage stalled. Setting labels replaces the whole set, which is what keeps them
+exclusive. `suggested` means the `gaps` skill raised it and the client hasn't answered;
+a declined one is closed `not planned` so it is never offered twice.
 
 Every PR body says `Closes #` and the literal issue number. That link is this project's
 memory: `git blame` a line → the `(#N)` in its commit subject → the PR → the `Closes` →
@@ -223,6 +227,11 @@ These are true of every project built this way, so start with them:
   exists.
 - Every PR closes its issue, and the issue's label is its stage. Auto-close doesn't
   always fire, so the issue is verified closed by hand.
+- **One issue solves one problem, and one PR closes one issue.** Bundling is what makes a
+  change unreviewable, unrevertable, and unreadable as a reason a year later.
+- **What the client didn't know to ask for is raised one item per session**, after their
+  own request shipped, and always as a separate issue. A list of everything missing gets
+  ignored; one sentence gets answered.
 - ESLint lints, Biome formats, and they don't overlap. Biome's linter is off.
 - The knowledge graph is local-only and never committed: `graphify` falls back to the
   `claude` CLI on `PATH`, so a bare `extract` becomes a nested agent shipping the

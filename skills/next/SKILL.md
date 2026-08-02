@@ -193,6 +193,13 @@ what a future session reads to recover the intent, so write it for a stranger.
 
 Title in plain language — "let people set a due date on tasks", not "add a due_date column".
 
+**One issue solves one problem.** If the interview surfaced two, write two issues — even
+when they'd touch the same files, even when one is small. A bundled issue can't be
+reviewed, can't be reverted cleanly, and reads back later as a mixture rather than a
+reason. This is what makes `git blame` → commit → PR → issue recover a single intent, so
+it is a constraint, not a preference. The test: if you can't title it without "and", split
+it.
+
 <issue-template>
 
 ## What was asked
@@ -250,6 +257,7 @@ adding the next one means removing the last.
 
 | Label | Means |
 | --- | --- |
+| `suggested` | Raised by you, not asked for — waiting on the client (see the `gaps` skill) |
 | `ready-for-agent` | Written, nothing started |
 | `implementing` | Slices are being written |
 | `in-review` | PR open, CI running |
@@ -346,3 +354,8 @@ its final label is context lost.
 Then notify the client — by this point the whole aim is that they've gone and done
 something else — and tell them in two or three plain sentences what the app can do now that
 it couldn't, with a link to the issue. Nobody else sees the orchestrator's report.
+
+**Last, and only after that:** the `gaps` skill. One thing their app is missing that they
+had no way to know to ask for — terms of use, sign-in, backups. Exactly one per session,
+never folded into the issue you just shipped, and skipped entirely if production is
+unhealthy or nothing genuinely applies yet.
