@@ -8,6 +8,14 @@ brackets** — GitHub strips anything shaped like an HTML tag, so a placeholder 
 brackets posts as nothing at all, and this project writes issues and pull requests on
 GitHub constantly.
 
+**Only the greenfield path is Vercel + Supabase.** `adopt` writes this file too, for a
+project that already exists and runs on whatever it runs on. The structure below stays;
+every operational section — the health check, the deploy model, the environment
+variables, what the connectors can't do — describes *that* project's real providers, and
+the sections that don't apply are deleted rather than left aspirational. `/next` reads
+this file instead of hardcoding anything, so a section naming a provider the project
+doesn't use is not a harmless leftover: it is an instruction, and it will be followed.
+
 ---
 
 ## `CLAUDE.md`

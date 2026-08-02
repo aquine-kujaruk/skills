@@ -73,7 +73,10 @@ and cannot deliver anything else. Speak up **before scaffolding** if:
 - Data has to live somewhere specific: on-premise, a named cloud, a residency rule.
 - The work is long-running, stateful or heavily concurrent — video processing, big
   scheduled jobs, sustained websockets. Serverless functions fit that badly.
-- There's an existing codebase or stack it has to fit into.
+- **There's an existing codebase or stack it has to fit into.** That one isn't a stop, it's
+  a different door: hand over to the `adopt` skill, which brings a project that already
+  runs under this method — health check first, then the gate and the memory files — and
+  lays out what could move here without moving anything on its own initiative.
 - The data genuinely isn't relational at a scale where that matters.
 
 When one of those is true, say plainly what doesn't fit and what you'd use instead — then

@@ -1,7 +1,8 @@
 # skills
 
-Four skills that take an **empty GitHub repository** to a deployed web app, and then keep
-it moving — driven entirely by someone describing what they want, in plain words.
+Six skills that take a web app from wherever it is today — an **empty GitHub repository**,
+or **one that is already live on somebody else's stack** — to something that keeps shipping
+because a person described what they wanted, in plain words.
 
 There is no code template here. The application is scaffolded at setup time by the
 framework's own CLI, so a project started next year starts on next year's Next.js rather
@@ -12,21 +13,30 @@ CLI can't: the security shape, the deployment path, and the working method.
 frontend and backend in one deployable unit, managed Postgres behind it, a deploy path
 that needs no credentials, and an ecosystem deep enough that almost any later request has a
 well-trodden answer. Setup only raises the question when something in the request genuinely
-rules it out: a native app, a data-residency rule, long-running or heavily concurrent work,
-an existing codebase to fit into. It scaffolds with `create-next-app` **bare** rather than
-a Supabase starter, because those put a database key in the browser and make RLS policies
-the guard — the inverse of the shape below.
+rules it out: a native app, a data-residency rule, long-running or heavily concurrent work.
+An existing codebase is the fourth, and it isn't a stop — it's `adopt`'s job. Setup
+scaffolds with `create-next-app` **bare** rather than a Supabase starter, because those put
+a database key in the browser and make RLS policies the guard — the inverse of the shape
+below.
+
+**Only that greenfield path is Vercel + Supabase.** Everything after it is
+provider-agnostic: `next` reads the project's `CLAUDE.md` for the repository, the host, the
+database and the commands, and never hardcodes any of them — which is what lets an adopted
+app carry on running exactly where it already runs.
 
 | Skill | When it runs |
 | --- | --- |
 | **`setup`** | First message in an empty repository. Picks the stack, scaffolds the app, creates the database, gets it deployed, verifies it is live *and* closed from outside, then writes the project's `CLAUDE.md`, `ADR.md` and `CONTEXT.md`. |
+| **`adopt`** | First message in a repository that already has a live app and no `CLAUDE.md` from this method. Surveys what it really runs on, establishes a health check **before touching anything**, interviews the client about everything pointed at it, lays out what could move here and what should stay, adds a CI gate, writes the same three files. It never changes application code. |
 | **`next`** | Every request after that. Interviews in plain language, writes an issue, hands it to agents, waits for a green check, merges, and verifies production. Nobody types it — it is the default way of working. |
+| **`migrate`** | When data that already exists has to move. Read-only export first, a profile of what the source really contains confirmed with the client, a load into a copy that is verified before anything points at it, a freeze window they agreed, and a cutover with a health check either side. The source is never deleted. |
 | **`gaps`** | At the end of a delivery, names **one** thing the app is missing that nobody knew to ask for — terms of use, a privacy notice, sign-in, backups, rate limiting. One per session, in plain language, and always as its own separate issue. |
 | **`graphify`** | A local knowledge graph of the repository, so a change is planned against what it actually touches instead of against grep. |
 
-Above all four sits one rule: **production stays up.** The health check runs before every
+Above all six sits one rule: **production stays up.** The health check runs before every
 merge and again after every deploy, and nothing is ever reverted or redeployed on an
-agent's own judgement.
+agent's own judgement. On an adopted project that rule arrives before anything else does —
+there is already a production, and it is somebody's livelihood.
 
 ## Installing them
 
@@ -73,7 +83,34 @@ worked.
 After that you never touch any of it again. You say *"let people add a photo to each
 entry"* and it gets built, checked and deployed.
 
+## Bringing in a project that already exists
+
+Same three skills afterwards, a different door in.
+
+1. Open the repository the app already lives in — the real one, with its history.
+2. Say: *"install the skills from github.com/aquine-kujaruk/skills and adopt this"*.
+3. Answer the questions. Most are things the code can't tell it: who uses it, where the
+   domain is registered, whether there's email on that domain, what must never break.
+
+It reads the project before it asks you anything, and **the first thing it does after that
+is find out whether the app is healthy right now.** If it can't tell, it stops there and
+says so — nothing is changed on top of a production nobody can verify.
+
+What you end up with is a check that runs on every change from then on, three files
+describing what you actually own, and a written proposal of what could move onto this
+method's own stack — cheapest and most reversible first, with what each one buys you and
+what it risks. **Nothing moves unless you say so**, each thing you accept ships on its own,
+and leaving everything exactly where it is is a perfectly normal outcome. It doesn't touch
+your application code either way.
+
+Moving the data is never part of adoption. That is `migrate`, on its own day, with a
+window you agreed — and the old copy kept forever, because it is the only rollback there is.
+
 ## What gets built
+
+This is what `setup` produces from nothing. An adopted project keeps its own shape until
+its owner decides otherwise — this is the target `adopt` describes to them, not something
+it imposes.
 
 ```
 Browser ──fetch /api/*──► Vercel Lambda ──service_role──► Supabase
@@ -97,6 +134,7 @@ database, and that nobody outside can.
 - **One Supabase project and one Vercel project per client.** Nothing is shared.
 - Doing the three human steps yourself before handing the repository over is fine — setup
   detects what's already done, verifies it, and moves on.
-- Each project's `CLAUDE.md` is written at setup and diverges from here afterwards. That
+- Each project's `CLAUDE.md` is written once — by `setup` or by `adopt` — and diverges
+  from here afterwards. That
   is intended: these skills hold the method, the project holds its own facts. Improvements
   worth keeping come back here by hand.

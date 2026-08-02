@@ -67,10 +67,18 @@ the merge, still mandate zero. They gained depth, not permissions.
 
 ## Before you start
 
-**If there is no application here yet — no `package.json`, or a `CLAUDE.md` that is only
-the framework CLI's `@AGENTS.md` line — this run isn't yours.** There is no production to
-protect, no tracker to write to and no database to migrate. Hand over to the `setup`
-skill, which ends by writing the real `CLAUDE.md`; come back after that.
+**This skill starts from a `CLAUDE.md` that describes a real project.** It is
+provider-agnostic precisely because that file is where the providers live — so if it isn't
+there, or it's only the framework CLI's one-line `@AGENTS.md`, this run isn't yours yet.
+Two different things can be missing, and each has its own door:
+
+| What you find | Whose run it is |
+| --- | --- |
+| **No application** — no `package.json`, or a bare scaffold nobody has finished | `setup`. There's no production to protect, no tracker to write to and no data to migrate. It ends by writing the real `CLAUDE.md`. |
+| **An application that already exists and already runs somewhere**, but no `CLAUDE.md` written by this method | `adopt`. It surveys what the project really is, establishes a health check before touching anything, adds the CI gate and writes the memory — without changing application code. |
+
+Come back after either one. From then on this skill works on whatever stack that
+`CLAUDE.md` describes, which is not necessarily the one `setup` would have chosen.
 
 Read `CLAUDE.md`, `ADR.md` and `CONTEXT.md`. They exist so you don't re-derive what was
 already settled. Then start the graph (below) — dispatch it first so it builds while you
