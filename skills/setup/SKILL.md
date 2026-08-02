@@ -100,11 +100,6 @@ maintainer away from abandonment.
 stale: the framework moves, and a year-old skeleton quietly ships year-old defaults. The
 official CLI is always current, so let it do the work and add only what it can't know.
 
-```bash
-npx create-next-app@latest . --typescript --eslint --app --no-tailwind \
-  --no-src-dir --import-alias "@/*" --use-npm --yes
-```
-
 Three things about that command, all learned the hard way:
 
 - **It refuses to run if `README.md` exists.** A repository created with a README — which
