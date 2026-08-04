@@ -1,0 +1,16 @@
+version: 1
+managed_label: stack-review:managed
+
+identifier:
+  title_pattern: '^\[([^]]+)\]'
+  source_branch_pattern: '(?:^|/)([A-Z][A-Z0-9]+-[0-9]+)(?:[-/]|$)'
+
+titles:
+  primary: '[{id}] {title}'
+  review: '[review][{id}] {title}'
+  feedback: '[feedback][{id}] {title}'
+  stack_source: '[stack-source][{id}] {title}'
+
+branches:
+  review: 'review/{id}/{index}-{slug}'
+  feedback: 'feedback/{id}/{index}-{slug}'

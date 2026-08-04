@@ -1,0 +1,17 @@
+{
+  "name": "pr-review-local",
+  "owner": {
+    "name": "eaquine"
+  },
+  "metadata": {
+    "description": "Local marketplace for PR Review"
+  },
+  "plugins": [
+    {
+      "name": "pr-review",
+      "source": "./",
+      "description": "Review one primary PR through a parallel draft stack and deterministic cleanup",
+      "version": "1.0.3"
+    }
+  ]
+}
