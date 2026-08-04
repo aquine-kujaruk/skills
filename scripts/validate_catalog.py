@@ -34,11 +34,15 @@ def file_snapshot(path: Path) -> dict[str, bytes]:
 
 def validate_plugin(name: str) -> None:
     plugin = PLUGIN_ROOT / name
+    versions = set()
     for host in (".codex-plugin", ".claude-plugin"):
         manifest_path = plugin / host / "plugin.json"
         manifest = load_json(manifest_path)
         if manifest.get("name") != name:
             fail(f"{manifest_path.relative_to(ROOT)}: name must be {name!r}")
+        versions.add(manifest.get("version"))
+    if len(versions) != 1 or None in versions:
+        fail(f"Codex and Claude Code manifests for {name} must share one version")
 
 
 def main() -> None:
