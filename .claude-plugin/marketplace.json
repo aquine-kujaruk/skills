@@ -1,17 +1,17 @@
 {
   "name": "aquine-skills",
   "owner": { "name": "3aquin3" },
-  "description": "Takes a web app from wherever it is today — an empty repository, or one already live on somebody else's stack — to something that keeps shipping because a person described what they wanted. No code template: the app is scaffolded by the framework's own CLI at setup time.",
+  "description": "Catálogo público de plugins de Aquine para Codex y Claude Code.",
   "plugins": [
     {
       "name": "webapp",
       "source": "./plugins/webapp",
-      "description": "Agentic web app delivery for a non-technical owner: scaffold on Vercel or adopt a live app wherever it already runs, then evolve it from plain-language requests."
+      "description": "Flujo agéntico para que una persona no técnica cree, adopte y evolucione una aplicación web en lenguaje natural."
     },
     {
       "name": "pr-review",
       "source": "./plugins/pr-review",
-      "description": "Keep one ready primary PR as the merge target while publishing a parallel draft review stack with tracked feedback and automatic cleanup."
+      "description": "Mantiene una PR principal para merge y un stack draft paralelo con feedback trazable y limpieza automática."
     }
   ]
 }

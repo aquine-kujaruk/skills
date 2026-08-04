@@ -1,7 +1,7 @@
 {
   "name": "webapp",
-  "version": "1.1.1",
-  "description": "Agentic web app delivery for a non-technical owner working in plain language.",
+  "version": "1.1.2",
+  "description": "Flujo agéntico para que una persona no técnica gestione una aplicación web en lenguaje natural.",
   "author": {
     "name": "3aquin3",
     "url": "https://github.com/aquine-kujaruk"
@@ -10,9 +10,9 @@
   "repository": "https://github.com/aquine-kujaruk/skills",
   "skills": "./skills/",
   "interface": {
-    "displayName": "Web App",
-    "shortDescription": "Ship a web app without becoming its technician.",
-    "longDescription": "Guide a non-technical owner from an empty repository or an existing live app through setup, adoption, changes, checks, merges, and verified deployments using plain-language requests.",
+    "displayName": "Webapp",
+    "shortDescription": "Crea y evoluciona una aplicación sin ser técnico.",
+    "longDescription": "Guía a una persona no técnica desde un repositorio vacío o una aplicación existente hasta cambios comprobados, mergeados y desplegados mediante peticiones en lenguaje natural.",
     "developerName": "3aquin3",
     "category": "Productivity",
     "capabilities": ["Write"],

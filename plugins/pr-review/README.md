@@ -16,6 +16,26 @@ Recorrido completo: [tutorial paso a paso](docs/tutorial.md).
 
 No existe `close`: el cierre o merge de la PR principal activa una limpieza determinista mediante GitHub Actions.
 
+## Instalar en Codex
+
+```bash
+codex plugin marketplace add aquine-kujaruk/skills --ref main
+codex plugin add pr-review@aquine-skills
+```
+
+Abre una tarea nueva y ejecuta `$pr-review:config` una vez en cada repositorio. Después usa
+`$pr-review:start` y `$pr-review:feedback` cuando corresponda.
+
+## Instalar en Claude Code
+
+```text
+/plugin marketplace add aquine-kujaruk/skills
+/plugin install pr-review@aquine-skills
+```
+
+Ejecuta `/reload-plugins` si se solicita. Configura el repositorio con `/pr-review:config` antes de
+usar `/pr-review:start` o `/pr-review:feedback`.
+
 ## Contrato visible
 
 ```mermaid
