@@ -1,7 +1,7 @@
 {
   "name": "webapp",
-  "version": "1.1.0",
-  "description": "Build and run a deployed web app by asking for it in plain language.",
+  "version": "1.1.1",
+  "description": "Agentic web app delivery for a non-technical owner working in plain language.",
   "author": {
     "name": "3aquin3",
     "url": "https://github.com/aquine-kujaruk"
@@ -11,8 +11,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Web App",
-    "shortDescription": "Build, adopt, and evolve deployed web apps.",
-    "longDescription": "Scaffold a Next.js and Supabase app on Vercel, adopt an existing live app without moving it, and turn later requests into verified deployments.",
+    "shortDescription": "Ship a web app without becoming its technician.",
+    "longDescription": "Guide a non-technical owner from an empty repository or an existing live app through setup, adoption, changes, checks, merges, and verified deployments using plain-language requests.",
     "developerName": "3aquin3",
     "category": "Productivity",
     "capabilities": ["Write"],

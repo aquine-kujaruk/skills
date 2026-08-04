@@ -5,8 +5,8 @@
   "plugins": [
     {
       "name": "webapp",
-      "source": "./",
-      "description": "Scaffold a Next.js + Supabase app on Vercel, or adopt a live one wherever it already runs, and then evolve it from plain-language requests alone."
+      "source": "./plugins/webapp",
+      "description": "Agentic web app delivery for a non-technical owner: scaffold on Vercel or adopt a live app wherever it already runs, then evolve it from plain-language requests."
     },
     {
       "name": "pr-review",
