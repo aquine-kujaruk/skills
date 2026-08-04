@@ -1,0 +1,20 @@
+{
+  "skill_name": "start",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Simulate $pr-review:start for a feature/export branch with an existing ready PR #42 to main titled 'Add export' and no identifier in its title or branch. Active configuration uses defaults, and the diff supports two coherent review questions. Do not make remote mutations; write the plan and expected GitHub result with names, markers, and evidence.",
+      "expected_output": "A plan that preserves PR #42 intact, uses PR-42 on auxiliary artifacts, and builds an all-draft stack with a distinct top PR from feature/export.",
+      "files": [],
+      "expectations": [
+        "Preserves PR #42 title, body, base, labels, and ready state instead of adding an identifier to the primary.",
+        "Resolves the fallback identifier as PR-42 and uses it only in auxiliary names and markers.",
+        "Creates two coherent [review][PR-42] draft layers with the single managed label.",
+        "Creates a distinct [stack-source][PR-42] draft PR headed by feature/export while PR #42 remains based on main.",
+        "Includes exact primary, generation, and role markers in every auxiliary body.",
+        "Requires matching tree object IDs and zero GitHub files on stack-source as equality evidence.",
+        "Removes generated local review branches after verified publication while preserving feature/export."
+      ]
+    }
+  ]
+}

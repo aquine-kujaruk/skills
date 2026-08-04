@@ -7,6 +7,11 @@
       "name": "webapp",
       "source": "./",
       "description": "Scaffold a Next.js + Supabase app on Vercel, or adopt a live one wherever it already runs, and then evolve it from plain-language requests alone."
+    },
+    {
+      "name": "pr-review",
+      "source": "./plugins/pr-review",
+      "description": "Keep one ready primary PR as the merge target while publishing a parallel draft review stack with tracked feedback and automatic cleanup."
     }
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "skill_name": "config",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Simulate $pr-review:config in an unconfigured repository whose default branch is main. A project convention requires auxiliary titles [inspection][ACME-123], [response][ACME-123], and [proof][ACME-123], plus checks/{id}/{index}-{slug} branches. Do not make remote mutations; write an exact report of the operations, files, validations, and handoff you would perform.",
+      "expected_output": "A configuration plan that respects the external convention, publishes one dedicated ready PR, and leaves activation pending merge.",
+      "files": [],
+      "expectations": [
+        "Targets one dedicated ready configuration PR to main and explicitly leaves it unmerged.",
+        "Includes .github/pr-review.yml, .github/workflows/pr-review-close.yml, and .github/scripts/pr-review-cleanup.sh.",
+        "Uses the external [inspection], [response], [proof], and checks/{id}/{index}-{slug} naming policy rather than replacing it with defaults.",
+        "Requires one managed label and keeps its value consistent between configuration and workflow.",
+        "Explains that start and feedback stay blocked until configuration is merged and Actions permissions are active."
+      ]
+    }
+  ]
+}

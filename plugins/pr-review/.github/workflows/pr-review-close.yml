@@ -1,0 +1,44 @@
+name: Close PR review stack
+
+on:
+  pull_request_target:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      primary_pr:
+        description: Closed primary PR number to clean up
+        required: true
+        type: number
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: pr-review-close-${{ github.event.pull_request.number || inputs.primary_pr }}
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      !contains(github.event.pull_request.labels.*.name, 'stack-review:managed')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      MANAGED_LABEL: stack-review:managed
+      PRIMARY_PR: ${{ github.event.pull_request.number || inputs.primary_pr }}
+    steps:
+      - name: Check out trusted cleanup files
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+
+      - name: Install official stacked PR extension
+        run: gh extension install github/gh-stack
+
+      - name: Close auxiliary PRs and delete managed branches
+        run: .github/scripts/pr-review-cleanup.sh "$PRIMARY_PR" "$MANAGED_LABEL"

@@ -1,4 +1,60 @@
-# skills
+# Aquine Skills
+
+Public catalog for installable plugins and standalone skills. Plugins live together in one
+marketplace; standalone skills remain under `skills/` so they can also be copied directly into a
+project. New plugins belong under `plugins/<plugin-name>/` and must be added to both marketplace
+files.
+
+## Plugin catalog
+
+| Plugin | Purpose |
+| --- | --- |
+| **`webapp`** | Scaffold or adopt a deployed web app, then evolve it from plain-language requests. |
+| **`pr-review`** | Keep one mergeable primary PR plus a parallel draft review stack, tracked feedback, and automatic cleanup. |
+
+Install only the plugins you want. Registering the marketplace is a one-time step per host.
+
+### Codex
+
+From a terminal:
+
+```bash
+codex plugin marketplace add aquine-kujaruk/skills --ref main
+codex plugin add webapp@aquine-skills
+codex plugin add pr-review@aquine-skills
+```
+
+You can also install them from `/plugins` after adding the marketplace. Start a new Codex task or
+CLI session after installation.
+
+### Claude Code
+
+Inside Claude Code:
+
+```text
+/plugin marketplace add aquine-kujaruk/skills
+/plugin install webapp@aquine-skills
+/plugin install pr-review@aquine-skills
+```
+
+Run `/reload-plugins` if Claude Code asks for it.
+
+### Plugin invocations
+
+| Plugin | Codex | Claude Code |
+| --- | --- | --- |
+| `webapp` | `$webapp:setup`, `$webapp:adopt`, `$webapp:next` | `/webapp:setup`, `/webapp:adopt`, `/webapp:next` |
+| `pr-review` | `$pr-review:config`, `$pr-review:start`, `$pr-review:feedback` | `/pr-review:config`, `/pr-review:start`, `/pr-review:feedback` |
+
+Run `pr-review:config` once in each repository before using `start` or `feedback`.
+
+Refresh the catalog after future releases with `codex plugin marketplace upgrade aquine-skills`
+or `/plugin marketplace update aquine-skills` in Claude Code.
+
+See the official [Codex plugin packaging guide](https://developers.openai.com/plugins/build/plugins)
+and [Claude Code marketplace guide](https://code.claude.com/docs/en/plugin-marketplaces).
+
+## Webapp plugin
 
 Six skills that take a web app from wherever it is today — an **empty GitHub repository**,
 or **one that is already live on somebody else's stack** — to something that keeps shipping
@@ -38,26 +94,20 @@ merge and again after every deploy, and nothing is ever reverted or redeployed o
 agent's own judgement. On an adopted project that rule arrives before anything else does —
 there is already a production, and it is somebody's livelihood.
 
-## Installing them
+## Installing webapp skills individually
 
-Into a project, one command:
+The six root skills can be copied into a project without installing the `webapp` plugin:
 
 ```bash
 npx skills add aquine-kujaruk/skills --skill '*' --agent claude-code --copy -y
 ```
 
-They land in `.claude/skills/` and get committed with the project, so they travel with it.
+They land in `.claude/skills/` and get committed with the project, so they travel with it. To copy
+only one, replace `--skill '*'` with a skill name such as `--skill setup`.
 
 Don't use `--all` here: it is shorthand for `--agent '*'`, which writes the same skills into
 fifty-odd other agents' directories. `--copy` matters too — the default symlinks into a
 cache that won't exist on anyone else's machine or in CI.
-
-Or as a Claude Code plugin, which namespaces them as `/webapp:setup` and `/webapp:next`:
-
-```
-/plugin marketplace add aquine-kujaruk/skills
-/plugin install webapp@aquine-skills
-```
 
 Either way, the next thing to do is just talk to it.
 

@@ -1,0 +1,6 @@
+interface:
+  display_name: "PR Review: Config"
+  short_description: "Install policy and automatic stack cleanup"
+  default_prompt: "$pr-review:config"
+policy:
+  allow_implicit_invocation: false

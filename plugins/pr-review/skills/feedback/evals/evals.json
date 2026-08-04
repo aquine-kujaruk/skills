@@ -1,0 +1,20 @@
+{
+  "skill_name": "feedback",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Simulate $pr-review:feedback on the active generation for primary PR #42. Comment ID-A is already marked as handled, ID-B is a new comment on an old initial layer, and ID-C is a new comment from a recently joined reviewer on the primary PR. Do not make remote mutations; write the exact discovery, correction, publication, and linking plan.",
+      "expected_output": "A plan without rounds or review states that deduplicates ID-A, processes ID-B and ID-C, updates the source first, and preserves existing PRs, branches, and threads.",
+      "files": [],
+      "expectations": [
+        "Scans the primary and every PR in the active generation, including the old initial layer.",
+        "Treats ID-A as handled only because its exact marker exists and selects ID-B and ID-C as new.",
+        "Groups corrections coherently without pending/reviewed labels or numbered rounds.",
+        "Applies and pushes the complete correction to the user-owned source branch before publishing feedback layers.",
+        "Preserves primary metadata and all previously published PRs and internal branches.",
+        "Adds exact feedback-ID markers and replies to ID-B and ID-C with correction PR and commit URLs while leaving threads open.",
+        "Restores the zero-file stack-source proof and removes generated local feedback branches after remote verification."
+      ]
+    }
+  ]
+}

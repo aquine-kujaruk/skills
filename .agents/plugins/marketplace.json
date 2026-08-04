@@ -1,0 +1,32 @@
+{
+  "name": "aquine-skills",
+  "interface": {
+    "displayName": "Aquine Skills"
+  },
+  "plugins": [
+    {
+      "name": "webapp",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "pr-review",
+      "source": {
+        "source": "local",
+        "path": "./plugins/pr-review"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
