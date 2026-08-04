@@ -4,14 +4,14 @@
     "name": "eaquine"
   },
   "metadata": {
-    "description": "Marketplace local para desarrollar PR Review"
+    "description": "Local marketplace for developing PR Review"
   },
   "plugins": [
     {
       "name": "pr-review",
       "source": "./",
-      "description": "Revisa una PR principal mediante un stack draft paralelo y limpieza determinista",
-      "version": "1.0.4"
+      "description": "Reviews a primary PR through a parallel draft stack with deterministic cleanup",
+      "version": "1.0.5"
     }
   ]
 }

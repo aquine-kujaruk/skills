@@ -1,7 +1,7 @@
 {
   "name": "aquine-skills",
   "interface": {
-    "displayName": "Plugins de Aquine"
+    "displayName": "Aquine Plugins"
   },
   "plugins": [
     {

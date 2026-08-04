@@ -1,39 +1,39 @@
 # Webapp
 
-Flujo agéntico para que una persona no técnica pueda crear, adoptar y evolucionar una aplicación
-web hablando en lenguaje natural. El plugin conserva producción operativa, convierte cada petición
-en trabajo verificable y acompaña los pasos que necesitan intervención humana.
+An agentic workflow that lets a non-technical person create, adopt, and evolve a web application
+through natural-language requests. The plugin keeps production operational, turns each request
+into verifiable work, and guides the steps that require human intervention.
 
-## Instalar en Codex
+## Install in Codex
 
 ```bash
 codex plugin marketplace add aquine-kujaruk/skills --ref main
 codex plugin add webapp@aquine-skills
 ```
 
-Abre una tarea nueva y comienza con `$webapp:setup`, `$webapp:adopt` o `$webapp:next`.
+Start a new task with `$webapp:setup`, `$webapp:adopt`, or `$webapp:next`.
 
-## Instalar en Claude Code
+## Install in Claude Code
 
 ```text
 /plugin marketplace add aquine-kujaruk/skills
 /plugin install webapp@aquine-skills
 ```
 
-Ejecuta `/reload-plugins` si se solicita. Las invocaciones principales son `/webapp:setup`,
-`/webapp:adopt` y `/webapp:next`.
+Run `/reload-plugins` if requested. The main invocations are `/webapp:setup`, `/webapp:adopt`, and
+`/webapp:next`.
 
-## Flujo principal
+## Main workflow
 
-| Skill | Uso |
+| Skill | Purpose |
 | --- | --- |
-| `setup` | Crea y despliega una aplicación nueva. |
-| `adopt` | Incorpora una aplicación existente sin alterar producción. |
-| `next` | Convierte una petición en un cambio desplegado y verificado. |
-| `migrate` | Mueve datos con comprobaciones y rollback. |
-| `gaps` | Señala una carencia importante que nadie pidió. |
-| `graphify` | Construye el mapa de relaciones del repositorio. |
+| `setup` | Creates and deploys a new application. |
+| `adopt` | Adopts an existing application without disrupting production. |
+| `next` | Turns a request into a deployed, verified change. |
+| `migrate` | Moves data with verification and rollback. |
+| `gaps` | Identifies an important missing capability that nobody requested. |
+| `graphify` | Builds a map of repository relationships. |
 
-Para una aplicación nueva, instala el plugin y pide que configure el proyecto. Para una aplicación
-existente, abre su repositorio y pide que la adopte. Después, describe cada cambio con tus propias
-palabras; `next` organiza la implementación, las comprobaciones y el despliegue.
+For a new application, install the plugin and ask it to set up the project. For an existing
+application, open its repository and ask it to adopt the project. Then describe each change in your
+own words; `next` organizes implementation, verification, and deployment.

@@ -1,7 +1,7 @@
 {
   "name": "webapp",
-  "description": "Flujo agéntico para que una persona no técnica cree o adopte una aplicación web y convierta peticiones en cambios comprobados y desplegados. Las migraciones de datos se realizan por separado y nunca eliminan el origen.",
-  "version": "1.1.2",
+  "description": "Agentic workflow for a non-technical person to create or adopt a web application and turn requests into verified, deployed changes. Data migrations run separately and never delete the source.",
+  "version": "1.1.3",
   "author": { "name": "3aquin3" },
   "homepage": "https://github.com/aquine-kujaruk/skills",
   "repository": "https://github.com/aquine-kujaruk/skills",
