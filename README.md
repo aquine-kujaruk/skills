@@ -1,15 +1,15 @@
 # Aquine Skills
 
-Public catalog for installable plugins and standalone skills. Plugins live together in one
-marketplace; standalone skills remain under `skills/` so they can also be copied directly into a
-project. New plugins belong under `plugins/<plugin-name>/` and must be added to both marketplace
-files.
+Public catalog for installable plugins and standalone skills. The repository root is itself the
+`webapp` plugin: its six bundled skills form an agentic delivery workflow for a non-technical owner,
+and can also be copied individually into a project. Additional plugins live under
+`plugins/<plugin-name>/`. Every plugin is listed in both marketplace files.
 
 ## Plugin catalog
 
 | Plugin | Purpose |
 | --- | --- |
-| **`webapp`** | Scaffold or adopt a deployed web app, then evolve it from plain-language requests. |
+| **`webapp`** | Agentic delivery for a non-technical owner: scaffold or adopt a deployed web app, then evolve it from plain-language requests. |
 | **`pr-review`** | Keep one mergeable primary PR plus a parallel draft review stack, tracked feedback, and automatic cleanup. |
 
 Install only the plugins you want. Registering the marketplace is a one-time step per host.
