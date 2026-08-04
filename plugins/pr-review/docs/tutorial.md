@@ -1,78 +1,91 @@
-# Tutorial: recorrer `pr-review` de principio a fin
+# Tutorial: run `pr-review` from start to finish
 
-Este recorrido prueba los tres casos de uso del plugin y el cierre automático:
+This walkthrough exercises the plugin's three use cases and automatic cleanup:
 
-1. configurar el repositorio;
-2. implementar un cambio de ejemplo;
-3. publicar la PR principal y su stack de revisión;
-4. aplicar feedback nuevo y tardío;
-5. terminar y limpiar la generación.
+1. configure the repository;
+2. implement an example change;
+3. publish the primary PR and its review stack;
+4. apply new and late feedback;
+5. finish and clean up the generation.
 
-Solo el paso de implementación usa un prompt detallado. Las skills se invocan por su nombre, con un argumento únicamente cuando el objetivo no está claro en el contexto.
+Only the implementation step uses a detailed prompt. Invoke skills by name and pass an argument
+only when the target is unclear from context.
 
-## Antes de empezar
+## Before you begin
 
-Abre el repositorio en Codex o Claude Code. El agente debe tener acceso autenticado a GitHub y a la extensión oficial `github/gh-stack`. La rama fuente debe pertenecer al mismo repositorio, no a un fork.
+Open the repository in Codex or Claude Code. The agent needs authenticated GitHub access and the
+official `github/gh-stack` extension. The source branch must belong to the same repository, not a
+fork.
 
-Invocaciones equivalentes:
+Equivalent invocations:
 
-| Caso | Codex | Claude Code |
+| Use case | Codex | Claude Code |
 | --- | --- | --- |
-| Configurar | `$pr-review:config` | `/pr-review:config` |
-| Publicar | `$pr-review:start` | `/pr-review:start` |
-| Aplicar feedback | `$pr-review:feedback` | `/pr-review:feedback` |
+| Configure | `$pr-review:config` | `/pr-review:config` |
+| Publish | `$pr-review:start` | `/pr-review:start` |
+| Apply feedback | `$pr-review:feedback` | `/pr-review:feedback` |
 
-## Paso 1: configurar el repositorio
+## Step 1: configure the repository
 
-En una tarea con el repositorio abierto, invoca:
+In a task with the repository open, invoke:
 
 ```text
 $pr-review:config
 ```
 
-La skill crea o reutiliza una PR lista hacia la rama por defecto con:
+The skill creates or reuses a ready PR to the default branch containing:
 
 - `.github/pr-review.yml`;
 - `.github/workflows/pr-review-close.yml`;
 - `.github/scripts/pr-review-cleanup.sh`.
 
-Revisa y mergea esa PR. `start` y `feedback` permanecerán bloqueadas hasta que esos archivos estén en la rama por defecto, Actions esté habilitado y exista el label configurado.
+Review and merge that PR. `start` and `feedback` remain blocked until those files are on the default
+branch, Actions is enabled, and the configured label exists.
 
-Si el repositorio ya está configurado, la skill lo verificará sin crear otra PR.
+If the repository is already configured, the skill verifies it without creating another PR.
 
-### Configuración con convenciones propias
+### Custom conventions
 
-La skill lee primero `AGENTS.md`, otras instrucciones del proyecto y la configuración existente. Para pedir una convención explícita, basta una invocación corta:
+The skill first reads `AGENTS.md`, other project instructions, and the existing configuration. A
+short invocation is enough to request explicit conventions:
 
 ```text
 $pr-review:config roles [inspection], [response], [proof]; branches checks/{id}/{index}-{slug}
 ```
 
-La PR de configuración sigue siendo la única superficie que se mergea para activar esa política.
+The configuration PR remains the only surface merged to activate that policy.
 
-## Paso 2: implementar la demostración
+## Step 2: implement the demonstration
 
-Este no es un comando de `pr-review`. Es el prompt que debes pegar al agente para crear el cambio fuente:
+This is not a `pr-review` command. Paste this prompt into the agent to create the source change:
 
-> En el repositorio actual, cambia a `main`, actualízala con `git pull --ff-only` y crea la rama `agent/tutorial-pr-review` desde ese punto. Si la rama ya existe, intégrale primero la `main` actual sin eliminar sus commits. Modifica únicamente `tutorial/order.md` y crea tres commits pequeños. En el primero, añade un pedido con producto “Taza”, precio de 20 €, total de 20 € y estado “borrador”. En el segundo, añade un descuento de 5 € y expresa el total como `20 € - 5 € = 15 €`. En el tercero, cambia el estado a “listo para revisión” y añade un checklist de dos líneas: precio verificado y descuento verificado. Cada commit debe entenderse leyendo su diff. Ejecuta `git diff --check`. No hagas push, no abras PR y no hagas merge. Deja activa la rama creada y devuelve los tres commits en orden con una frase por cambio.
+> In the current repository, switch to `main`, update it with `git pull --ff-only`, and create the
+> branch `agent/tutorial-pr-review` from that point. If the branch already exists, first integrate
+> the current `main` without deleting its commits. Modify only `tutorial/order.md` and create three
+> small commits. In the first, add an order with product "Mug", price €20, total €20, and status
+> "draft". In the second, add a €5 discount and write the total as `€20 - €5 = €15`. In the third,
+> change the status to "ready for review" and add a two-line checklist: price verified and discount
+> verified. Each commit must be understandable from its diff. Run `git diff --check`. Do not push,
+> open a PR, or merge. Leave the created branch active and return the three commits in order with
+> one sentence per change.
 
-Al terminar debes tener:
+When finished, you should have:
 
-- `agent/tutorial-pr-review` como rama activa;
-- la rama contiene la versión actual de `docs/tutorial.md` y conserva los commits previos si ya existía;
-- tres commits consecutivos;
-- un árbol de trabajo limpio;
-- ninguna PR nueva.
+- `agent/tutorial-pr-review` as the active branch;
+- the current default-branch history plus any previous commits if the source branch already existed;
+- three consecutive demonstration commits;
+- a clean working tree;
+- no new PR.
 
-## Paso 3: publicar la revisión
+## Step 3: publish the review
 
-En la misma tarea, con la rama fuente activa:
+In the same task, with the source branch active:
 
 ```text
 $pr-review:start
 ```
 
-Si la rama está en otro checkout o ya existe una PR, señala el objetivo:
+If the branch is in another checkout or a PR already exists, select the target:
 
 ```text
 $pr-review:start agent/tutorial-pr-review
@@ -80,38 +93,38 @@ $pr-review:start 123
 $pr-review:start https://github.com/OWNER/REPO/pull/123
 ```
 
-Si ya conoces el identificador antes de crear la PR principal:
+If you know the identifier before creating the primary PR:
 
 ```text
 $pr-review:start --id DEMO-123
 ```
 
-La respuesta debe mostrar primero la PR principal y después las auxiliares de abajo arriba.
+The response must show the primary PR first, followed by the auxiliary PRs from bottom to top.
 
-### Qué comprobar en GitHub
+### What to verify on GitHub
 
-- La PR principal está lista, apunta a `main` y es la única que se mergea.
-- Las capas `[review][ID]` están draft y cada una plantea una sola pregunta.
-- Todas las auxiliares tienen únicamente el label `stack-review:managed` como identidad de gestión.
-- La PR `[stack-source][ID]` también está draft.
-- La PR principal y `stack-source` usan `agent/tutorial-pr-review` y comparten head SHA.
-- `stack-source` tiene como base la última capa interna y muestra cero archivos cambiados.
-- El agente aporta los dos tree IDs iguales, no solo SHAs iguales.
-- Las ramas internas ya no existen localmente; la rama fuente sí.
+- The primary PR is ready, targets `main`, and is the only PR to merge.
+- The `[review][ID]` layers are drafts and each asks one question.
+- Every auxiliary PR has only the `stack-review:managed` label as its managed identity.
+- The `[stack-source][ID]` PR is also a draft.
+- The primary PR and `stack-source` use `agent/tutorial-pr-review` and share the same head SHA.
+- `stack-source` uses the last internal layer as its base and shows zero changed files.
+- The agent provides both equal tree IDs, not only equal SHAs.
+- Internal branches no longer exist locally; the source branch does.
 
-Invocar `start` otra vez sobre la misma generación debe reutilizarla, no duplicarla.
+Invoking `start` again for the same generation must reuse it instead of duplicating it.
 
-## Paso 4: dejar feedback humano
+## Step 4: leave human feedback
 
-En la capa que introduce el descuento, comenta la línea del total:
+On the layer that introduces the discount, comment on the total line:
 
-> Añade una línea separada que explique por qué el descuento es de 5 €.
+> Add a separate line explaining why the discount is €5.
 
-También puedes comentar en la PR principal. Mantén el thread abierto: la resolución pertenece al reviewer.
+You can also comment on the primary PR. Keep the thread open: resolution belongs to the reviewer.
 
-## Paso 5: aplicar el feedback
+## Step 5: apply the feedback
 
-Puedes pasar la PR principal o cualquier PR auxiliar:
+You can pass the primary PR or any auxiliary PR:
 
 ```text
 $pr-review:feedback 123
@@ -121,82 +134,89 @@ $pr-review:feedback 123
 $pr-review:feedback https://github.com/OWNER/REPO/pull/123
 ```
 
-Si la tarea ya contiene la URL o la PR está seleccionada:
+If the task already contains the URL or the PR is selected:
 
 ```text
 $pr-review:feedback
 ```
 
-### Qué comprobar
+### What to verify
 
-- La corrección completa llega primero a `agent/tutorial-pr-review` y actualiza la misma PR principal.
-- La PR principal conserva título, body, base, labels, reviewers y estado.
-- Aparece una capa `[feedback][ID]` draft inmediatamente debajo de `stack-source`.
-- Su body enlaza el comentario original y contiene la verificación.
-- El comentario original recibe una respuesta con la PR y el commit correctores.
-- El thread sigue abierto.
-- Las capas anteriores mantienen números, ramas, commits y comentarios.
-- `stack-source` vuelve a mostrar cero archivos y el mismo head que la principal.
-- La rama local de feedback desaparece tras verificar la publicación.
+- The complete correction reaches `agent/tutorial-pr-review` first and updates the same primary PR.
+- The primary PR keeps its title, body, base, labels, reviewers, and state.
+- A draft `[feedback][ID]` layer appears immediately below `stack-source`.
+- Its body links the original comment and contains the verification evidence.
+- The original comment receives a reply with the correcting PR and commit.
+- The thread remains open.
+- Previous layers keep their numbers, branches, commits, and comments.
+- `stack-source` again shows zero files and the same head as the primary PR.
+- The local feedback branch disappears after publication is verified.
 
-## Paso 6: feedback tardío y varios reviewers
+## Step 6: late feedback and multiple reviewers
 
-Después de la primera corrección, deja un comentario nuevo en la primera capa:
+After the first correction, leave a new comment on the first layer:
 
-> El producto debe incluir una referencia `TAZA-DEMO` para poder identificarlo.
+> The product must include a `MUG-DEMO` reference so it can be identified.
 
-Otro reviewer puede comentar a la vez en la PR principal:
+Another reviewer can comment on the primary PR at the same time:
 
-> Añade al checklist una línea que confirme la referencia del producto.
+> Add a checklist line confirming the product reference.
 
-Vuelve a invocar:
+Invoke again:
 
 ```text
 $pr-review:feedback
 ```
 
-La skill debe escanear otra vez la PR principal y todas las capas abiertas, incluidas las antiguas. Los comentarios ya marcados no generan otra corrección; los nuevos se agrupan por coherencia, no por reviewer ni por “ronda”.
+The skill must rescan the primary PR and all open layers, including old ones. Comments already
+marked as handled do not produce another correction. New comments are grouped by coherence, not by
+reviewer or "round".
 
-Invocar `feedback` sin comentarios accionables nuevos no debe mutar ramas ni PRs.
+Invoking `feedback` with no new actionable comments must not mutate branches or PRs.
 
-## Paso 7: terminar la generación
+## Step 7: finish the generation
 
-Cuando la revisión esté terminada, mergea únicamente la PR principal. Para descartar la demostración, ciérrala sin mergear. Ambas acciones terminan la generación y activan `Close PR review stack`.
+When review is complete, merge only the primary PR. To discard the demonstration, close it without
+merging. Both actions end the generation and trigger `Close PR review stack`.
 
-La Action debe:
+The Action must:
 
-1. eliminar la pertenencia al stack nativo;
-2. cerrar todas las PR auxiliares;
-3. borrar sus ramas remotas internas;
-4. conservar la rama fuente, la PR principal y todo el historial de revisión.
+1. remove native stack membership;
+2. close all auxiliary PRs;
+3. delete their remote internal branches;
+4. preserve the source branch, primary PR, and complete review history.
 
-No existe una skill `close`.
+There is no `close` skill.
 
-### Reintento manual
+### Manual retry
 
-Si la Action falla, abre **Actions → Close PR review stack → Run workflow**, introduce el número de la PR principal cerrada y ejecútala otra vez. El cleanup es idempotente.
+If the Action fails, open **Actions → Close PR review stack → Run workflow**, enter the number of
+the closed primary PR, and run it again. Cleanup is idempotent.
 
-## Paso 8: reabrir una PR cerrada
+## Step 8: reopen a closed PR
 
-Una PR principal cerrada sin merge puede reabrirse. Después invoca:
+An unmerged primary PR can be reopened. Then invoke:
 
 ```text
-$pr-review:start URL_DE_LA_PR_PRINCIPAL
+$pr-review:start PRIMARY_PR_URL
 ```
 
-La skill crea una generación nueva y deja cerrada la anterior. Una PR ya mergeada no puede iniciar otra generación.
+The skill creates a new generation and leaves the previous one closed. A merged PR cannot start
+another generation.
 
-## Diagnóstico rápido
+## Quick diagnostics
 
-| Síntoma | Acción |
+| Symptom | Action |
 | --- | --- |
-| `start` o `feedback` bloqueada | Mergea primero la PR creada por `config` y comprueba Actions. |
-| Una publicación falló a medias | Repite la misma invocación; la skill inspecciona y reutiliza lo ya publicado. |
-| No aparece feedback nuevo | Comprueba que el comentario sea humano y accionable; vuelve a invocar `feedback` sobre cualquier PR activa. |
-| Una auxiliar parece mergeable | Debe seguir draft y comenzar por un rol visible; no la mergees. |
-| Quedan ramas locales internas | La ejecución no está completa; la skill debe verificar GitHub y retirarlas. |
-| Cerraste la principal y quedan auxiliares | Reintenta el workflow manual con el número de la principal. |
+| `start` or `feedback` is blocked | Merge the PR created by `config` first and check Actions. |
+| Publication failed partway through | Repeat the same invocation; the skill inspects and reuses what was already published. |
+| New feedback does not appear | Check that the comment is human and actionable, then invoke `feedback` again on any active PR. |
+| An auxiliary PR appears mergeable | It must remain a draft and start with a visible role; do not merge it. |
+| Local internal branches remain | Execution is incomplete; the skill must verify GitHub and remove them. |
+| You closed the primary PR but auxiliaries remain | Retry the workflow manually with the primary PR number. |
 
-## Resultado final esperado
+## Expected final result
 
-Has usado `config`, `start` y `feedback`; probado comentarios nuevos, tardíos y de varios reviewers; verificado la doble vista de una misma rama; y cerrado la generación sin convertir el stack auxiliar en una segunda ruta de merge.
+You have used `config`, `start`, and `feedback`; tested new and late comments from multiple
+reviewers; verified both views of the same branch; and closed the generation without turning the
+auxiliary stack into a second merge path.

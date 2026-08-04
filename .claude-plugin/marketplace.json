@@ -1,17 +1,17 @@
 {
   "name": "aquine-skills",
   "owner": { "name": "3aquin3" },
-  "description": "Catálogo público de plugins de Aquine para Codex y Claude Code.",
+  "description": "Public catalog of Aquine plugins for Codex and Claude Code.",
   "plugins": [
     {
       "name": "webapp",
       "source": "./plugins/webapp",
-      "description": "Flujo agéntico para que una persona no técnica cree, adopte y evolucione una aplicación web en lenguaje natural."
+      "description": "Agentic workflow for a non-technical person to create, adopt, and evolve a web application in natural language."
     },
     {
       "name": "pr-review",
       "source": "./plugins/pr-review",
-      "description": "Mantiene una PR principal para merge y un stack draft paralelo con feedback trazable y limpieza automática."
+      "description": "Keeps one primary merge PR and a parallel draft stack with traceable feedback and automatic cleanup."
     }
   ]
 }

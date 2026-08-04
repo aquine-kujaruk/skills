@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "pr-review",
-  "version": "1.0.4",
-  "description": "Combina una PR principal estable con un stack draft, feedback trazable y limpieza determinista.",
+  "version": "1.0.5",
+  "description": "Combines one stable primary PR with a draft stack, traceable feedback, and deterministic cleanup.",
   "author": {
     "name": "eaquine",
     "url": "https://github.com/aquine-kujaruk"

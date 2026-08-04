@@ -1,7 +1,7 @@
 {
   "name": "pr-review",
-  "version": "1.0.4",
-  "description": "Combina una PR principal estable con un stack draft, feedback trazable y limpieza determinista.",
+  "version": "1.0.5",
+  "description": "Combines one stable primary PR with a draft stack, traceable feedback, and deterministic cleanup.",
   "author": {
     "name": "eaquine",
     "url": "https://github.com/aquine-kujaruk"
@@ -11,8 +11,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "PR Review",
-    "shortDescription": "Revisa una PR de merge mediante capas draft coherentes.",
-    "longDescription": "Configura el repositorio, conserva una única PR principal como objetivo de merge, publica un stack draft paralelo, aplica correcciones enlazadas a comentarios y limpia las ramas auxiliares al cerrar.",
+    "shortDescription": "Review a merge PR through coherent draft layers.",
+    "longDescription": "Configures the repository, keeps one primary PR as the only merge target, publishes a parallel draft stack, applies corrections linked to comments, and cleans up auxiliary branches when the PR closes.",
     "developerName": "eaquine",
     "category": "Productivity",
     "capabilities": ["Write"],

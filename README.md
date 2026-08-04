@@ -1,21 +1,21 @@
-# Plugins y skills de Aquine
+# Aquine plugins and skills
 
-Repositorio público para distribuir plugins y skills independientes. Cada plugin es un paquete
-autocontenido para Codex y Claude Code; una skill solo aparece fuera de un plugin cuando se publica
-de forma independiente.
+Public repository for distributing plugins and standalone skills. Each plugin is a self-contained
+package for Codex and Claude Code. A skill only appears outside a plugin when it is published
+independently.
 
-## Catálogo
+## Catalog
 
-| Plugin | Para qué sirve | Documentación |
+| Plugin | Purpose | Documentation |
 | --- | --- | --- |
-| `webapp` | Guía a una persona no técnica desde una idea o aplicación existente hasta cambios desplegados y verificados. | [Instalar y usar](plugins/webapp/README.md) |
-| `pr-review` | Mantiene una PR principal para merge y un stack draft paralelo para revisar el cambio por capas. | [Instalar y usar](plugins/pr-review/README.md) |
+| `webapp` | Guides a non-technical person from an idea or existing application to deployed, verified changes. | [Install and use](plugins/webapp/README.md) |
+| `pr-review` | Keeps one primary merge PR and a parallel draft stack for reviewing the change in layers. | [Install and use](plugins/pr-review/README.md) |
 
-## Instalación rápida
+## Quick installation
 
 ### Codex
 
-Registra el catálogo una vez e instala solo el plugin que necesites:
+Register the catalog once, then install only the plugin you need:
 
 ```bash
 codex plugin marketplace add aquine-kujaruk/skills --ref main
@@ -23,7 +23,7 @@ codex plugin add webapp@aquine-skills
 codex plugin add pr-review@aquine-skills
 ```
 
-También puedes instalarlos desde `/plugins` después de registrar el catálogo.
+You can also install them from `/plugins` after registering the catalog.
 
 ### Claude Code
 
@@ -33,17 +33,17 @@ También puedes instalarlos desde `/plugins` después de registrar el catálogo.
 /plugin install pr-review@aquine-skills
 ```
 
-Ejecuta `/reload-plugins` si Claude Code lo solicita. Abre una tarea nueva después de instalar o
-actualizar un plugin.
+Run `/reload-plugins` if Claude Code requests it. Start a new task after installing or updating a
+plugin.
 
-## Estructura
+## Structure
 
 ```text
-plugins/webapp/      # plugin autocontenido
-plugins/pr-review/   # plugin autocontenido
-.agents/plugins/     # catálogo de Codex
-.claude-plugin/      # catálogo de Claude Code
+plugins/webapp/      # self-contained plugin
+plugins/pr-review/   # self-contained plugin
+.agents/plugins/     # Codex catalog
+.claude-plugin/      # Claude Code catalog
 ```
 
-Los futuros plugins seguirán `plugins/<nombre>/`. Las futuras skills independientes usarán
-`skills/<nombre>/` y no duplicarán contenido de un plugin.
+Future plugins will use `plugins/<name>/`. Future standalone skills will use `skills/<name>/` and
+will not duplicate plugin content.
