@@ -1,6 +1,6 @@
 {
   "name": "pr-review",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Combines one stable primary PR with a draft stack, traceable feedback, and deterministic cleanup.",
   "author": {
     "name": "eaquine",
