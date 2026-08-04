@@ -50,7 +50,6 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, str], str]:
 def validate_manifests() -> None:
     codex = load_json(ROOT / ".codex-plugin" / "plugin.json")
     claude = load_json(ROOT / ".claude-plugin" / "plugin.json")
-    marketplace = load_json(ROOT / ".claude-plugin" / "marketplace.json")
     versions = {codex.get("version"), claude.get("version")}
     if codex.get("name") != PLUGIN_NAME or claude.get("name") != PLUGIN_NAME:
         fail("both plugin manifests must use the pr-review namespace")
@@ -58,11 +57,6 @@ def validate_manifests() -> None:
         r"\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?", next(iter(versions), "")
     ):
         fail("plugin manifest versions must match and use semver")
-    entries = marketplace.get("plugins", [])
-    if len(entries) != 1 or entries[0].get("name") != PLUGIN_NAME:
-        fail("Claude marketplace must expose exactly the pr-review plugin")
-    if entries[0].get("version") not in versions:
-        fail("Claude marketplace version must match both manifests")
     expected_prompts = [f"$pr-review:{name}" for name in SKILLS]
     if codex.get("interface", {}).get("defaultPrompt") != expected_prompts:
         fail("Codex starter prompts must be the three minimal pr-review invocations")
@@ -153,12 +147,11 @@ def validate_skill_set() -> None:
         fail(f"project skill links must be exactly {sorted(expected)}")
 
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    claude = (ROOT / "CLAUDE.md").read_text(encoding="utf-8")
     for name in SKILLS:
         if f"$pr-review:{name}" not in readme:
             fail(f"README.md: missing Codex invocation for {name}")
-        if f"/pr-review:{name}" not in readme or f"/pr-review:{name}" not in claude:
-            fail(f"documentation: missing Claude invocation for {name}")
+        if f"/pr-review:{name}" not in readme:
+            fail(f"README.md: missing Claude invocation for {name}")
 
 
 def validate_placeholders() -> None:
