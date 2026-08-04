@@ -1,9 +1,23 @@
 # Aquine Skills
 
-Public catalog for installable plugins and standalone skills. The repository root is itself the
-`webapp` plugin: its six bundled skills form an agentic delivery workflow for a non-technical owner,
-and can also be copied individually into a project. Additional plugins live under
-`plugins/<plugin-name>/`. Every plugin is listed in both marketplace files.
+Public catalog for installable plugins and standalone skills. Every installable plugin is a
+self-contained package under `plugins/<plugin-name>/` and appears in both marketplace files.
+`webapp` bundles six skills into an agentic delivery workflow for a non-technical owner; the same
+skills are mirrored at the repository root so they can also be copied individually into a project.
+
+## Repository layout
+
+```text
+plugins/webapp/      # complete webapp plugin for Codex and Claude Code
+plugins/pr-review/   # complete pr-review plugin for Codex and Claude Code
+skills/              # individual-install mirror of plugins/webapp/skills
+.agents/plugins/     # Codex marketplace
+.claude-plugin/      # Claude Code marketplace
+```
+
+`plugins/webapp/skills` is canonical. When changing one of those skills, update its root mirror in
+the same commit. Run `python3 scripts/validate_catalog.py` to verify the mirror, manifests, and
+marketplace entries.
 
 ## Plugin catalog
 
@@ -99,14 +113,17 @@ there is already a production, and it is somebody's livelihood.
 The six root skills can be copied into a project without installing the `webapp` plugin:
 
 ```bash
-npx skills add aquine-kujaruk/skills --skill '*' --agent claude-code --copy -y
+npx skills add aquine-kujaruk/skills \
+  --skill setup adopt next migrate gaps graphify \
+  --agent claude-code --copy -y
 ```
 
 They land in `.claude/skills/` and get committed with the project, so they travel with it. To copy
-only one, replace `--skill '*'` with a skill name such as `--skill setup`.
+only one, keep just that name after `--skill`.
 
-Don't use `--all` here: it is shorthand for `--agent '*'`, which writes the same skills into
-fifty-odd other agents' directories. `--copy` matters too — the default symlinks into a
+Don't replace the explicit list with `--skill '*'`: the repository also contains skills internal to
+other plugins, which are not standalone packages. Don't use `--all` either: it also writes skills
+into every supported agent directory. `--copy` matters because the default symlinks point into a
 cache that won't exist on anyone else's machine or in CI.
 
 Either way, the next thing to do is just talk to it.

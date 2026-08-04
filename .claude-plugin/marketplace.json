@@ -5,7 +5,7 @@
   "plugins": [
     {
       "name": "webapp",
-      "source": "./",
+      "source": "./plugins/webapp",
       "description": "Agentic web app delivery for a non-technical owner: scaffold on Vercel or adopt a live app wherever it already runs, then evolve it from plain-language requests."
     },
     {
