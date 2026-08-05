@@ -97,14 +97,17 @@ The skill:
 
 1. creates or reuses the primary PR without changing its metadata when it already exists;
 2. resolves an identifier from the title, branch, or `PR-<number>`;
-3. reconstructs the change as coherent questions;
+3. reconstructs the changes into coherent questions tailored to the reviewer's bandwidth;
 4. publishes marked draft PRs;
 5. creates a second PR from the same source branch as the top proof;
 6. verifies equal trees and zero changed files;
 7. removes all generated internal branches from the local repository.
 
-It returns the primary URL first, followed by the stack from bottom to top, with one question per
-layer and evidence of equality.
+There is no “favorite” number of layers or universal maximum number of lines or files. Size, file scope, and the subsystems involved serve as guidelines: the skill only subdivides if it receives self-contained questions and valid intermediate trees. It stops subdividing when doing so would fragment a concept, require jumping between PRs to reconstruct context, or create micro-PRs without a distinct question.
+
+Each layer explains why it exists, what it depends on, what the reviewer must decide, and how it was validated. First return the main URL, then the stack from bottom to top, with a question and a summary of the workload per layer, any exceptions for broad layers, and evidence of equivalence.
+
+Translated with DeepL.com (free version)
 
 ## 3. Apply feedback
 

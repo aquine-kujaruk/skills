@@ -15,6 +15,20 @@
         "Requires matching tree object IDs and zero GitHub files on stack-source as equality evidence.",
         "Removes generated local review branches after verified publication while preserving feature/export."
       ]
+    },
+    {
+      "id": 2,
+      "prompt": "Simulate $pr-review:start for a large feature branch whose diff spans several subsystems. An initial thematic pass yields three broad questions, but each still mixes independently reviewable behavior. Some implementation and tests form one inseparable concept, and the diff also contains a generated lockfile and a large mechanical deletion. Do not make remote mutations; design the review layers and explain every split and stop decision.",
+      "expected_output": "An adaptive layer plan that splits broad independent concepts without targeting a fixed PR count, keeps inseparable context together, treats generated or mechanical churn differently, and gives reviewers a resumable path through valid intermediate trees.",
+      "files": [],
+      "expectations": [
+        "Does not accept the initial three broad themes merely to minimize PR count and does not impose a universal LOC, file, time, or layer limit.",
+        "Recursively separates independent review questions only when each result remains understandable and repository-valid.",
+        "Keeps the inseparable implementation and tests together and states that splitting them would increase cross-PR context reconstruction.",
+        "Treats the generated lockfile and mechanical deletion as different review-load signals rather than raw evidence that more layers are required.",
+        "Provides each layer with one review question plus why it exists, what it depends on, and what validates its intermediate tree.",
+        "Reports a bandwidth summary per layer and an explicit stop reason for any layer that remains unusually broad."
+      ]
     }
   ]
 }

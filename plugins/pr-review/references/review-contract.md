@@ -11,6 +11,22 @@ This file is the single source of truth shared by `config`, `start`, and `feedba
 
 Treat an existing primary PR as immutable metadata. Preserve its number, title, body, base, labels, assignees, milestone, review state, and draft state. Feedback may only advance its source branch with new commits. When creating a primary PR, make it ready and point it directly at the destination.
 
+## Reviewer bandwidth
+
+Reviewability outranks minimizing the number of layers. There is no preferred layer count and no universal limit based on changed lines, files, or review time.
+
+Design each internal layer as one complete review question that a reviewer can understand and answer in a focused pass without repeatedly opening sibling PRs. Assess proposed layers with all of these signals:
+
+- conceptual breadth: independent behaviors or decisions belong in separate layers when each remains meaningful alone;
+- diff breadth: human-authored churn, substantive files, and affected subsystems are warnings, not quotas; generated files, lockfiles, mechanical rewrites, and large deletions need different judgment;
+- context closure: include the implementation, tests, rationale, and dependencies needed to answer the question;
+- intermediate validity: every layer ends in a buildable or otherwise repository-valid tree and preserves the dependencies below it;
+- navigation cost: prefer an adjacent, coherent story over smaller layers that make the reviewer reconstruct one concept across PRs.
+
+Split a broad layer again when doing so reduces the context held at once and produces independently understandable, valid layers. Stop splitting when another boundary would fragment one conceptual unit, increase cross-PR switching, or invalidate the intermediate tree. Coalesce trivial adjacent layers that ask the same question. If a layer remains unusually broad, record the applicable stop reason instead of forcing a mechanical split.
+
+Every review-layer body provides a resumption cue: why the layer exists, what it depends on, what the reviewer should decide, and what validation makes the intermediate tree trustworthy.
+
 ## Configuration gate
 
 Read `.github/pr-review.yml` and `.github/workflows/pr-review-close.yml` from the repository default branch, not merely from the working tree. `start` and `feedback` proceed only when:

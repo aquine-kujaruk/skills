@@ -21,9 +21,13 @@ Complete when one ready primary PR points from the frozen source to the destinat
 
 ## 3. Design review layers
 
-Partition the complete destination-to-source diff into the fewest coherent review questions. Each layer must be understandable from its own diff, preserve required dependencies below it, and end in a valid intermediate tree. Use configured titles and branches. Prepare bodies with identity markers and one explicit review question.
+Partition the complete destination-to-source diff by reviewer bandwidth using `review-contract.md`. Start from concepts and dependency order, then assess conceptual breadth, human-authored churn, substantive files and subsystems, context closure, navigation cost, and intermediate-tree validity. Treat size measurements as warnings, never quotas or universal limits.
 
-Complete when every changed line belongs to exactly one planned layer and the ordered plan reconstructs the complete source tree.
+Recursively split a broad layer only when the result gives independently understandable, valid questions with less context to hold at once. Coalesce micro-layers that ask the same question. Stop when another split would fragment one conceptual unit, force cross-PR context reconstruction, or invalidate the intermediate tree; record that reason for any unusually broad layer. Do not target a preferred number of PRs.
+
+Use configured titles and branches. Prepare bodies with identity markers, one explicit review question, and the resumption cue required by the contract: why this layer, what it depends on, and what validates it.
+
+Complete when every changed line belongs to exactly one planned layer, every layer has one review question and resumption cue, each bandwidth warning is resolved by a coherent split or explicit stop reason, and the ordered plan reconstructs the complete source tree.
 
 ## 4. Publish the parallel stack
 
@@ -41,6 +45,6 @@ Complete when no managed local branch from this generation remains and the sourc
 
 ## 6. Report
 
-Return the primary PR URL first, then auxiliary URLs bottom-to-top. Include one question per layer, identifier/generation, stack number, tree-equality evidence, zero-file evidence, and local-ref cleanup evidence. Make clear that only the primary PR is mergeable.
+Return the primary PR URL first, then auxiliary URLs bottom-to-top. Include one question and bandwidth summary per layer, any stop reason for a broad layer, identifier/generation, stack number, tree-equality evidence, zero-file evidence, and local-ref cleanup evidence. Make clear that only the primary PR is mergeable.
 
 Complete when the GitHub review can proceed from the response alone.
