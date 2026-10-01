@@ -11,6 +11,21 @@ independently.
 | `webapp` | Guides a non-technical person from an idea or existing application to deployed, verified changes. | [Install and use](plugins/webapp/README.md) |
 | `pr-review` | Keeps one primary merge PR and a parallel draft stack for reviewing the change in layers. | [Install and use](plugins/pr-review/README.md) |
 
+## Standalone skills
+
+| Skill | Purpose | Documentation |
+| --- | --- | --- |
+| `blueprint` | Represents and iterates on one flow as a temporary pseudocode package with contexts, use cases and Mermaid diagrams. | [Notation and use](skills/blueprint/SKILL.md) |
+
+Install it for Codex and Claude Code with the skills CLI:
+
+```bash
+npx skills add aquine-kujaruk/skills --skill blueprint --agent codex claude-code
+```
+
+Invoke `$blueprint` in Codex or `/blueprint` in Claude Code with the code, endpoint or imagined flow
+you want to understand. Questions leave the package untouched; corrections update it in place.
+
 ## Quick installation
 
 ### Codex
@@ -68,9 +83,10 @@ Restart Claude Code when requested, then start a new task.
 ```text
 plugins/webapp/      # self-contained plugin
 plugins/pr-review/   # self-contained plugin
+skills/blueprint/    # standalone skill and versioned eval fixtures
 .agents/plugins/     # Codex catalog
 .claude-plugin/      # Claude Code catalog
 ```
 
-Future plugins will use `plugins/<name>/`. Future standalone skills will use `skills/<name>/` and
+Future plugins will use `plugins/<name>/`. Standalone skills use `skills/<name>/` and
 will not duplicate plugin content.

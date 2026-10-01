@@ -1,0 +1,6 @@
+interface:
+  display_name: "Blueprint"
+  short_description: "Draw and iterate on one flow in a fixed design notation"
+  default_prompt: "$blueprint"
+policy:
+  allow_implicit_invocation: false
